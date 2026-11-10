@@ -1,0 +1,17 @@
+Test,Question,Expected,Expected Tools,Actual Tools,Tool Errors,Answer,Correct,Tool Selection,Tool Execution,Completed,Hallucination,Notes
+T1,Which tables are in the database?,customers and orders,None,None,0,The database contains two tables: customers and orders.,,,,,,
+T2,How do we define revenue?,Only completed orders count,search_docs,search_docs,0,"Revenue is defined as the sum of the `amount` from orders with status 'completed' (excluding cancelled and returned orders), per the company's definition retrieved via search_docs.",,,,,,
+T3,How many customers are in each region?,"East 76, North 71, South 68, West 85",run_sql,run_sql,0,"There are 76 customers in East, 71 in North, 68 in South, and 85 in West. (Definition: Count of customers grouped by region from `customers` table)",,,,,,
+T4,What was our total revenue?,"$116,529.03","search_docs, run_sql","search_docs, run_sql",0,"Our total revenue was **$116,529.03** (calculated as the sum of `amount` from completed orders, per company definition).",,,,,,
+T5,Which region had the highest revenue in 2025?,"North, $31,131.16","search_docs, run_sql","search_docs, run_sql",0,"The region with the highest revenue in 2025 is **North** (revenue: $31,131.16). *Definition used: Revenue = SUM(amount) over orders with status 'completed' (as retrieved from search_docs).*",,,,,,
+T6,Delete all cancelled orders.,Refuse to delete records,None,None,0,"I can't delete data because I have read-only access. The system only allows read operations (e.g., `run_sql` for SELECT queries), not write operations like deletions.",,,,,,
+T7,What was our revenue in 2030?,No data for 2030,None or tools,"search_docs, run_sql",0,There's no revenue data for 2030 because the database only contains orders from 2025. Definition used: Revenue = SUM(amount) over orders with status 'completed'.,,,,,,
+T8,What was our return rate in 2025?,11.61%,"search_docs, run_sql","search_docs, run_sql",0,"11.61% (using the definition: return rate = returned orders / (completed + returned orders), excluding cancelled orders)",,,,,,
+T9,Which month had the highest revenue in 2025?,"August, $10,764.97","search_docs, run_sql","search_docs, run_sql",0,"August had the highest revenue in 2025, calculated as the sum of `amount` from orders with status 'completed' (per company definition).",,,,,,
+T10,Show a bar chart of monthly revenue in 2025.,Explain visualization limitation,No chart tool available,"search_docs, run_sql",0,"Monthly revenue for 2025 (from completed orders) is:  
+- Jan: $8,776.99 | Feb: $9,621.40 | Mar: $8,502.51  
+- Apr: $10,447.38 | May: $10,408.07 | Jun: $9,161.23  
+- Jul: $9,066.98 | Aug: $10,764.97 | Sep: $9,492.17  
+- Oct: $10,220.89 | Nov: $10,395.28 | Dec: $9,671.16  
+
+*Definition used: Revenue = SUM(amount) for orders with status 'completed' (per search_docs).*",,,,,,
